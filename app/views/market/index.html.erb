@@ -1,0 +1,125 @@
+<h1>Market#index</h1>
+<p>Find me in app/views/market/index.html.erb</p>
+<div class="parts">
+  <select>
+    <option value="T-shirts">T-shirts</option>
+    <option value="knit">knit</option>
+    <option value="polo">polo</option>
+  </select>
+</div>
+
+<div class="brands">
+  <select>
+    <% @brand_names.each do |name| %>
+      <option value="<%= name[1].gsub(/(&|\s)/, "_")%>"><%= name[1].gsub(/(&|\s)/, "_") %></option>
+    <% end %>
+  </select>
+</div>
+
+
+<p>flow in process </p>
+<ul>
+  <li>クリックされた画像？アイコン
+  <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @hadoop %></li>
+  <li>平均csvの読み込み</li>
+  <ul>
+    <li>上記コマンドで生成されたファイルの読み込み1行目<%=@ave_arrs[0]  %></li>
+    <li>上記コマンドで生成されたファイルの読み込み2行目<%=@ave_arrs[1] %></li>
+  </ul>
+  <li>偏差値csvの読み込み</li>
+  <ul>
+    <li>上記コマンドで生成されたファイルの読み込み1行目<%=@dev_arrs[0]  %></li>
+    <li>上記コマンドで生成されたファイルの読み込み2行目<%=@dev_arrs[1] %></li>
+  </ul>
+</ul>
+
+<script>
+$(document).ready(function(){
+$('.parts').MultiColumnSelect({
+
+// Single or Multiple Select
+multiple: false,
+
+// Use text from option. Use false if you plan to use images
+useOptionText: false,
+
+// Hide Original Select Control
+hideselect: true,
+
+// Toggle Open Button Class
+openmenuClass: 'mcs-open',
+
+// Text for button
+openmenuText: 'Choose A Kind Of Tops',
+
+// Class added to Toggle button on open
+openclass: 'open',
+
+// Class of parent container
+containerClass: 'mcs-container',
+
+// Class of menu items
+itemClass: 'mcs-item',
+
+// Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+idprefix: null,
+
+// Toggle Height duration
+duration: 200,
+
+// Callbacks
+onOpen: null,
+onClose: null,
+onItemSelect: null
+
+});
+  $('.mcs-item').css('background-image', 'url(/assets/s_fred.jpg)');
+});
+
+$(document).ready(function(){
+  $('.brands').MultiColumnSelect({
+
+// Single or Multiple Select
+    multiple: false,
+
+// Use text from option. Use false if you plan to use images
+    useOptionText: false,
+
+// Hide Original Select Control
+    hideselect: true,
+
+// Toggle Open Button Class
+    openmenuClass: 'mcs-open',
+
+// Text for button
+    openmenuText: 'Choose A Brand',
+
+// Class added to Toggle button on open
+    openclass: 'open',
+
+// Class of parent container
+    containerClass: 'mcs-container',
+
+// Class of menu items
+    itemClass: 'mcs-item',
+
+// Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+    idprefix: null,
+
+// Toggle Height duration
+    duration: 200,
+
+// Callbacks
+    onOpen: null,
+    onClose: null,
+    onItemSelect: null
+
+  });
+  $('.mcs-item').each(function(){
+    $(this).css('background','#000');
+    $(this).css('background-image', 'url(/assets/'+$(this).attr('data')+'.jpg)');
+    $(this).css('background-repeat', 'no-repeat');
+    $(this).css('background-position', 'center center');
+  });
+});
+</script>
