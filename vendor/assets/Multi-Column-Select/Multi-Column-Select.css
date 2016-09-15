@@ -5,6 +5,9 @@ html,body{
     width:88%;
 }
 
+svg{
+    background: aliceblue;
+}
 /*The container that holds the dropdown items*/
 .mcs-container{
     	width:100%;

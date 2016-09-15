@@ -1,5 +1,4 @@
-<h1>Market#index</h1>
-<p>Find me in app/views/market/index.html.erb</p>
+<%= image_tag 'logo.png' %>
 <div class="parts">
   <select>
     <option value="T-shirts">T-shirts</option>
@@ -11,72 +10,73 @@
 <div class="brands">
   <select>
     <% @brand_names.each do |name| %>
-      <option value="<%= name[1].gsub(/(&|\s)/, "_")%>"><%= name[1].gsub(/(&|\s)/, "_") %></option>
+      <option value="<%= name[1].gsub(/H&M/, "HandM").gsub(/(&|\s)/,"")%>"><%= name[1].gsub(/H&M/, "HandM").gsub(/(&|\s)/,"") %></option>
     <% end %>
   </select>
 </div>
-
+<%= form_tag("/market/index") do %>
+        <input name="part" type="hidden" value="p">
+        <input name="brand" type="hidden" value="b">
+        <div style="text-align:center">
+          <input type="button" name="search" value="search">
+        </div>
+        <input type="hidden" name="submit" style="display:none">
+<% end %>
+<div id="chart">
+  <svg width="960" height="500"></svg>
+</div>
 
 <p>flow in process </p>
 <ul>
-  <li>クリックされた画像？アイコン
+  <li>クリックされた画像？アイコン part:<%= @part %> brand:<%= @brand %></li>
   <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @hadoop %></li>
-  <li>平均csvの読み込み</li>
-  <ul>
-    <li>上記コマンドで生成されたファイルの読み込み1行目<%=@ave_arrs[0]  %></li>
-    <li>上記コマンドで生成されたファイルの読み込み2行目<%=@ave_arrs[1] %></li>
-  </ul>
-  <li>偏差値csvの読み込み</li>
-  <ul>
-    <li>上記コマンドで生成されたファイルの読み込み1行目<%=@dev_arrs[0]  %></li>
-    <li>上記コマンドで生成されたファイルの読み込み2行目<%=@dev_arrs[1] %></li>
-  </ul>
+  <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @ave_arrs[0] %></li>
+  <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @ave_arrs[1] %></li>
+  <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @dev_arrs[0] %></li>
+  <li>クリックされたらhadoopの外部コマンドになげその終了待ち 結果:<%= @dev_arrs[1] %></li>
 </ul>
 
 <script>
 $(document).ready(function(){
-$('.parts').MultiColumnSelect({
+  $('.parts').MultiColumnSelect({
 
-// Single or Multiple Select
-multiple: false,
+    // Single or Multiple Select
+    multiple: false,
 
-// Use text from option. Use false if you plan to use images
-useOptionText: false,
+    // Use text from option. Use false if you plan to use images
+    useOptionText: false,
 
-// Hide Original Select Control
-hideselect: true,
+    // Hide Original Select Control
+    hideselect: true,
 
-// Toggle Open Button Class
-openmenuClass: 'mcs-open',
+    // Toggle Open Button Class
+    openmenuClass: 'mcs-open',
 
-// Text for button
-openmenuText: 'Choose A Kind Of Tops',
+    // Text for button
+    openmenuText: 'Choose A Kind Of Tops',
 
-// Class added to Toggle button on open
-openclass: 'open',
+    // Class added to Toggle button on open
+    openclass: 'open',
 
-// Class of parent container
-containerClass: 'mcs-container',
+    // Class of parent container
+    containerClass: 'mcs-container',
 
-// Class of menu items
-itemClass: 'mcs-item',
+    // Class of menu items
+    itemClass: 'mcs-item',
 
-// Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-idprefix: null,
+    // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+    idprefix: null,
 
-// Toggle Height duration
-duration: 200,
+    // Toggle Height duration
+    duration: 200,
 
-// Callbacks
-onOpen: null,
-onClose: null,
-onItemSelect: null
+    // Callbacks
+    onOpen: null,
+    onClose: null,
+    onItemSelect: null
 
-});
+  });
   $('.mcs-item').css('background-image', 'url(/assets/s_fred.jpg)');
-});
-
-$(document).ready(function(){
   $('.brands').MultiColumnSelect({
 
 // Single or Multiple Select
@@ -121,5 +121,60 @@ $(document).ready(function(){
     $(this).css('background-repeat', 'no-repeat');
     $(this).css('background-position', 'center center');
   });
+
+  $('input[type="button"]').click(function() {
+    var selected = $(".mcs-container").children('.active');
+    if(selected.length == 2){
+      $('input[name="part"]').attr('value',selected.eq(0).attr('data'));
+      $('input[name="brand"]').attr('value',selected.eq(1).attr('data'));
+      $('input[name="submit"]').attr('type','submit');
+      $('input[name="submit"]').click();
+    }
+  });
+  nv.addGraph(function() {
+    var chart = nv.models.stackedAreaChart()
+        .margin({right: 100})
+        .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+        .y(function(d) { return d[1] })   //...in case your data is formatted differently.
+//        .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
+//        .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+//        .transitionDuration(500)
+        .showControls(false)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+        .clipEdge(true);
+
+    //Format x-axis labels with custom function.
+    chart.xAxis
+        .tickFormat(d3.format(',.2f'));
+
+    chart.yAxis
+        .tickFormat(d3.format(',.2f'));
+    var part_ar =[];
+    var brand_ar= [];
+    var n = 100;
+    var ave1 =<%=@ave_arrs[0][1]%>
+    var ave2 =<%=@ave_arrs[1][1]%>
+    var dev1 =<%=@dev_arrs[0][1]%>
+    var dev2 =<%=@dev_arrs[1][1]%>
+    for (i = 0; i < n; i++) {
+        part_ar.push([(parseFloat(ave1)- parseFloat(dev1)+parseFloat(dev1)*i*2/n), nd(parseFloat(ave1)-parseFloat(dev1)+parseFloat(dev1)*i*2/n,parseFloat(ave1),parseFloat(dev1))]);
+        brand_ar.push([(parseFloat(ave2)- parseFloat(dev1)+parseFloat(dev1)*i*2/n), nd(parseFloat(ave2)-parseFloat(dev2)+parseFloat(dev1)*i*2/n,parseFloat(ave2),parseFloat(dev2))]);
+    }
+    var data = [];
+    data.push({"key" : "<%=@part%>" , "values":part_ar});
+    data.push({"key" : "<%=@brand%>" ,"values":brand_ar});
+    console.log(data);
+      d3.select('#chart svg')
+        .datum(data)
+        .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+    });
+
 });
+function nd(x,u,s){
+  if(s==0) return x;
+  return ((0.3989 / s) * Math.pow(2.7182,-0.5*Math.pow((x-u)/s,2)));
+}
 </script>
