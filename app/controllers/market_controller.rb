@@ -18,6 +18,7 @@ class MarketController < ApplicationController
       @ave_arrs = [0,0]
       @dev_arrs = [0,0]
       @brand_names = CSV.read("app/assets/csv/brand_name.csv")
+      @part = 'p'
     end
   end
   # def list

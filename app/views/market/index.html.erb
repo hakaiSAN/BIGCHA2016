@@ -156,8 +156,10 @@ $(document).ready(function(){
     var dev1 =<%=@dev_arrs[0][1]%>
     var dev2 =<%=@dev_arrs[1][1]%>
     for (i = 0; i < n; i++) {
+//      if((parseFloat(ave1)- 3*parseFloat(dev1)+3*parseFloat(dev1)*i*2/n)>=0)
         part_ar.push([(parseFloat(ave1)- 3*parseFloat(dev1)+3*parseFloat(dev1)*i*2/n), nd(parseFloat(ave1)-3*parseFloat(dev1)+3*parseFloat(dev1)*i*2/n,parseFloat(ave1),parseFloat(dev1))]);
-        brand_ar.push([(parseFloat(ave2)- 3*parseFloat(dev1)+3*parseFloat(dev1)*i*2/n), nd(parseFloat(ave2)-3*parseFloat(dev2)+3*parseFloat(dev1)*i*2/n,parseFloat(ave2),parseFloat(dev2))]);
+//      if(parseFloat(ave2)- 3*parseFloat(dev2)+3*parseFloat(dev2)*i*2/n>=0)
+        brand_ar.push([(parseFloat(ave2)- 3*parseFloat(dev2)+3*parseFloat(dev2)*i*2/n), nd(parseFloat(ave2)-3*parseFloat(dev2)+3*parseFloat(dev2)*i*2/n,parseFloat(ave2),parseFloat(dev2))]);
     }
     var data = [];
     data.push({"key" : "<%=@part%>" , "values":part_ar});
