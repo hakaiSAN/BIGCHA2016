@@ -1,24 +1,29 @@
-# README
+# La valeur
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+このプロジェクトはBIGCHA2016(http://bigcha.net/)で作成したものです．
 
-Things you may want to cover:
+## 概要
+このアプリケーションでは
+ブランド名とアイテム名（ex. Tシャツ)を指定すると
+それに関連したデータの平均価格などの解析結果を表示してくれるアプリケーションです．
 
-* Ruby version
+これにより，
+ユーザはブランドの価格帯や適正価格について知ることができます．
 
-* System dependencies
 
-* Configuration
+## やったこと
+* オークションデータをHadoopを用いて解析．
+* Webアプリケーションにてその解析結果を表示．
 
-* Database creation
 
-* Database initialization
+## 担当
+* データ準備, Webアプリケーション実装：@t1ks0n
+* UIデザイン：@peanutmanuec
+* 平均価格計算Reducer実装：@peanutmanuec
+* 平均価格計算Mapper実装, データクレイジングMapReduce実装：@hakaiSAN
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## 補足
+MapReduceのプロジェクトは講義のパッケージを準拠しています
 
-* ...
