@@ -1,6 +1,6 @@
 # La valeur
 
-このプロジェクトはBIGCHA2016(http://bigcha.net/)で作成したものです．
+このプロジェクトは[BIGCHA2016](http://bigcha.net/)で作成したものです．
 
 ## 概要
 このアプリケーションでは
@@ -17,10 +17,10 @@
 
 
 ## 担当
-* データ準備, Webアプリケーション実装：@t1ks0n
-* UIデザイン：@peanutmanuec
-* 平均価格計算Reducer実装：@peanutmanuec
-* 平均価格計算Mapper実装, データクレイジングMapReduce実装：@hakaiSAN
+* データ準備, Webアプリケーション実装：[@t1ks0n](https://github.com/t1ks0n)
+* UIデザイン：[@peanutmanuec](https://github.com/peanutmanuec)
+* 平均価格計算Reducer実装：[@Umekawa](https://github.com/Umekawa)
+* 平均価格計算Mapper実装, データクレイジングMapReduce実装：[@hakaiSAN](https://github.com/hakaiSAN)
 
 
 
