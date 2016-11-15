@@ -7,7 +7,9 @@
 	<packaging>jar</packaging>
 
 	<url>https://github.com/hakaiSAN/BIGCHA2016</url>
-	<inceptionYear>2016</inceptionYear>
+	<description>Average and deviation calculation for cleansing.csv.
+It is based by https://github.com/exKAZUu/MapReduceExcercise</description>
+	<inceptionYear>2015</inceptionYear>
 
 	<!-- General settings -->
 	<properties>
@@ -72,8 +74,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<artifactId>Cleansing</artifactId>
-	<name>Cleansing</name>
-	<description>Customize data for file.csv by dictonary.txt.
-It is based by https://github.com/exKAZUu/MapReduceExcercise</description>
+	<artifactId>Avedev</artifactId>
+	<name>Avedev</name>
 </project>

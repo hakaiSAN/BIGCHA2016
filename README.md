@@ -25,5 +25,5 @@
 
 
 ## 補足
-MapReduceのプロジェクトは講義のパッケージを準拠しています
-
+MapReduceのプロジェクトは講義のパッケージを準拠しています  
+[MapReduce](https://github.com/exKAZUu/MapReduceExcercise)

@@ -24,7 +24,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 
 /*
  * Reducer スペース，円, 表記ブレなどの処理
- * 配列のa, x, b等の位置は各自のデータに合わせて調整してください
+ * 配列のa, b, x, y等の位置は各自のデータに合わせて調整してください
  */
 
 
@@ -32,7 +32,7 @@ public class CleansingReducer extends Reducer<NullWritable, Text, NullWritable, 
   private HashMap<Integer, String> cachedData = new HashMap<Integer, String>();
   private int index;
 //  public static int INDEX = 1; //Test
-  private static int INDEX = 10; //ブランド名の辞書のINDEX数
+  private static int INDEX = ; //ブランド名の辞書のINDEX数
   private Text valueOut = new Text();
 
   @Override
@@ -73,7 +73,7 @@ public class CleansingReducer extends Reducer<NullWritable, Text, NullWritable, 
 		// format:カラムに合わせて調整
 		for(Text val : values){
 			String[] cols = val.toString().split(",");
-			cols[1] = deleteSpace(cols[1]);
+			cols[a] = deleteSpace(cols[a]);
 		
 			//文字列置換　ブランド名．商品名表記統一
 			for(reduce_index=0; reduce_index < INDEX; reduce_index++){
@@ -81,16 +81,16 @@ public class CleansingReducer extends Reducer<NullWritable, Text, NullWritable, 
 				String def = deleteSpace(pbs[0]);
 				for(int i = 1; i < pbs.length; i++){ //スペースなし統一
 					pbs[i] = deleteSpace(pbs[i]);
-					cols[1] = replaceName(cols[1], pbs[i], def);
+					cols[b] = replaceName(cols[b], pbs[i], def);
 				}
 			}
 			
 			
 			// 価格名の表記ブレ処理
-			cols[3] = deleteSpace(cols[3]);
-			cols[3] = deleteYen(cols[3]); //開始価格の処理
-			cols[4] = deleteSpace(cols[4]);
-			cols[4] = deleteYen(cols[4]); //落札価格の処理
+			cols[x] = deleteSpace(cols[x]);
+			cols[x] = deleteYen(cols[x]); //開始価格の処理
+			cols[y] = deleteSpace(cols[y]);
+			cols[y] = deleteYen(cols[y]); //落札価格の処理
 
 			buf.setLength(0);
 			for(int i=0; i<cols.length; i++){ 
